@@ -248,9 +248,7 @@ class _BetterPlayerCupertinoControlsState
               color: backgroundColor,
               child: Center(
                 child: Icon(
-                  _betterPlayerController!.isFullScreen
-                      ? _controlsConfiguration.fullscreenDisableIcon
-                      : _controlsConfiguration.fullscreenEnableIcon,
+                  _controlsConfiguration.closeVideoIcon,
                   color: iconColor,
                 ),
               ),
