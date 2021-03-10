@@ -224,14 +224,14 @@ class _BetterPlayerCupertinoControlsState
     );
   }
 
-  GestureDetector _buildExpandButton(
+  GestureDetector _buildCloseButton(
     Color backgroundColor,
     Color iconColor,
     double barHeight,
     double buttonPadding,
   ) {
     return GestureDetector(
-      onTap: _onExpandCollapse,
+      onTap: _onVideoClosed,
       child: AnimatedOpacity(
         opacity: _hideStuff ? 0.0 : 1.0,
         duration: _controlsConfiguration.controlsHideTime,
@@ -477,7 +477,7 @@ class _BetterPlayerCupertinoControlsState
       child: Row(
         children: <Widget>[
           if (_controlsConfiguration.enableFullscreen)
-            _buildExpandButton(
+            _buildCloseButton(
                 backgroundColor, iconColor, barHeight, buttonPadding)
           else
             const SizedBox(),
@@ -577,6 +577,10 @@ class _BetterPlayerCupertinoControlsState
         cancelAndRestartTimer();
       }
     });
+  }
+
+  void _onVideoClosed() {
+    _betterPlayerController!.closeVideo(); 
   }
 
   void _onExpandCollapse() {

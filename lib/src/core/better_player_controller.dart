@@ -496,6 +496,10 @@ class BetterPlayerController {
     _postControllerEvent(BetterPlayerControllerEvent.hideFullscreen);
   }
 
+  void closeVideo() {
+    _postControllerEvent(BetterPlayerControllerEvent.closeVideo);
+  }
+
   ///Enables/disables full screen mode based on current fullscreen state.
   void toggleFullScreen() {
     _isFullScreen = !_isFullScreen;

@@ -40,6 +40,9 @@ class BetterPlayerControlsConfiguration {
   ///Icon of fullscreen mode disable
   final IconData fullscreenDisableIcon;
 
+  //Icon of close video
+  final IconData closeVideoIcon;
+
   ///Cupertino only icon, icon of skip
   final IconData skipBackIcon;
 
@@ -178,6 +181,7 @@ class BetterPlayerControlsConfiguration {
       this.unMuteIcon = Icons.volume_mute,
       this.fullscreenEnableIcon = Icons.fullscreen,
       this.fullscreenDisableIcon = Icons.fullscreen_exit,
+      this.closeVideoIcon = Icons.close,
       this.skipBackIcon = Icons.fast_rewind,
       this.skipForwardIcon = Icons.fast_forward,
       this.enableFullscreen = true,

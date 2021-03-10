@@ -144,6 +144,9 @@ class _BetterPlayerState extends State<BetterPlayer>
       case BetterPlayerControllerEvent.hideFullscreen:
         onFullScreenChanged();
         break;
+      case BetterPlayerControllerEvent.closeVideo:
+        closeVideo();
+        break;
       default:
         setState(() {});
         break;
@@ -164,6 +167,11 @@ class _BetterPlayerState extends State<BetterPlayer>
       controller
           .postEvent(BetterPlayerEvent(BetterPlayerEventType.hideFullscreen));
     }
+  }
+
+  void closeVideo() {
+    final controller = widget.controller;
+    controller.postEvent(BetterPlayerEvent(BetterPlayerEventType.closed));
   }
 
   @override

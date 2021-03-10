@@ -13,5 +13,7 @@ enum BetterPlayerControllerEvent {
   setupDataSource,
 
   //Video has started.
-  play
+  play,
+
+  closeVideo
 }
