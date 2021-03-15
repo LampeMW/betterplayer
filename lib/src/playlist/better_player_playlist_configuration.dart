@@ -14,5 +14,6 @@ class BetterPlayerPlaylistConfiguration {
     this.nextVideoDelay = const Duration(milliseconds: 3000),
     this.loopVideos = true,
     this.initialStartIndex = 0,
-  });
+  })  : assert(nextVideoDelay != null),
+        assert(loopVideos != null);
 }

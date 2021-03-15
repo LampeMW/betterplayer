@@ -9,7 +9,7 @@ class SubtitlesPage extends StatefulWidget {
 }
 
 class _SubtitlesPageState extends State<SubtitlesPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

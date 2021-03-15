@@ -9,7 +9,7 @@ class ControlsAlwaysVisiblePage extends StatefulWidget {
 }
 
 class _ControlsAlwaysVisiblePageState extends State<ControlsAlwaysVisiblePage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _ControlsAlwaysVisiblePageState extends State<ControlsAlwaysVisiblePage> {
           ElevatedButton(
               onPressed: () {
                 _betterPlayerController.setControlsAlwaysVisible(
-                    !(_betterPlayerController.controlsAlwaysVisible));
+                    !(_betterPlayerController.controlsAlwaysVisible ?? false));
               },
               child: Text("Toggle always visible controls"))
         ],

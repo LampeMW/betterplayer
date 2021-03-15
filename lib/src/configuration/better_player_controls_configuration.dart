@@ -86,11 +86,11 @@ class BetterPlayerControlsConfiguration {
   final Duration controlsHideTime;
 
   ///Parameter used to build custom controls
-  final Widget Function(BetterPlayerController controller)?
+  final Widget Function(BetterPlayerController controller)
       customControlsBuilder;
 
   ///Parameter used to change theme of the player
-  final BetterPlayerTheme? playerTheme;
+  final BetterPlayerTheme playerTheme;
 
   ///Flag used to show/hide controls
   final bool showControls;
@@ -160,7 +160,7 @@ class BetterPlayerControlsConfiguration {
   final Color loadingColor;
 
   ///Widget which can be used instead of default progress
-  final Widget? loadingWidget;
+  final Widget loadingWidget;
 
   ///Color of the background, when no frame is displayed.
   final Color backgroundColor;
@@ -186,7 +186,7 @@ class BetterPlayerControlsConfiguration {
       this.skipForwardIcon = Icons.fast_forward,
       this.enableFullscreen = true,
       this.enableMute = true,
-      this.enableProgressText = true,
+      this.enableProgressText = false,
       this.enableProgressBar = true,
       this.enableProgressBarDrag = true,
       this.enablePlayPause = true,
@@ -241,6 +241,7 @@ class BetterPlayerControlsConfiguration {
         fullscreenEnableIcon: CupertinoIcons.fullscreen,
         fullscreenDisableIcon: CupertinoIcons.fullscreen_exit,
         playIcon: CupertinoIcons.play_arrow_solid,
-        pauseIcon: CupertinoIcons.pause_solid);
+        pauseIcon: CupertinoIcons.pause_solid,
+        enableProgressText: true);
   }
 }

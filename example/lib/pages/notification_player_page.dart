@@ -8,7 +8,7 @@ class NotificationPlayerPage extends StatefulWidget {
 }
 
 class _NotificationPlayerPageState extends State<NotificationPlayerPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

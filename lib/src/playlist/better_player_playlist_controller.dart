@@ -16,13 +16,13 @@ class BetterPlayerPlaylistController {
   final BetterPlayerPlaylistConfiguration betterPlayerPlaylistConfiguration;
 
   ///BetterPlayerController instance
-  BetterPlayerController? _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   ///Currently playing data source index
   int _currentDataSourceIndex = 0;
 
   ///Next video change listener subscription
-  StreamSubscription? _nextVideoTimeStreamSubscription;
+  StreamSubscription _nextVideoTimeStreamSubscription;
 
   ///Flag that determines whenever player is changing video
   bool _changingToNextVideo = false;
@@ -32,8 +32,13 @@ class BetterPlayerPlaylistController {
     this.betterPlayerConfiguration = const BetterPlayerConfiguration(),
     this.betterPlayerPlaylistConfiguration =
         const BetterPlayerPlaylistConfiguration(),
-  }) : assert(_betterPlayerDataSourceList.isNotEmpty,
-            "Better Player data source list can't be empty") {
+  })  : assert(
+            _betterPlayerDataSourceList != null &&
+                _betterPlayerDataSourceList.isNotEmpty,
+            "Better Player data source list can't be empty"),
+        assert(betterPlayerConfiguration != null, "BetterPlayerConfiguration"),
+        assert(betterPlayerPlaylistConfiguration != null,
+            "BetterPlayerPlaylistConfiguration can't be null") {
     _setup();
   }
 
@@ -44,15 +49,16 @@ class BetterPlayerPlaylistController {
       betterPlayerPlaylistConfiguration: betterPlayerPlaylistConfiguration,
     );
 
-    var initialStartIndex = betterPlayerPlaylistConfiguration.initialStartIndex;
+    var initialStartIndex =
+        betterPlayerPlaylistConfiguration.initialStartIndex ?? 0;
     if (initialStartIndex >= _betterPlayerDataSourceList.length) {
       initialStartIndex = 0;
     }
 
     _currentDataSourceIndex = initialStartIndex;
     setupDataSource(_currentDataSourceIndex);
-    _betterPlayerController!.addEventsListener(_handleEvent);
-    _nextVideoTimeStreamSubscription = _betterPlayerController!
+    _betterPlayerController.addEventsListener(_handleEvent);
+    _nextVideoTimeStreamSubscription = _betterPlayerController
         .nextVideoTimeStreamController.stream
         .listen((time) {
       if (time != null && time == 0) {
@@ -71,8 +77,8 @@ class BetterPlayerPlaylistController {
     if (nextDataSourceId == -1) {
       return;
     }
-    if (_betterPlayerController!.isFullScreen) {
-      _betterPlayerController!.exitFullScreen();
+    if (_betterPlayerController.isFullScreen) {
+      _betterPlayerController.exitFullScreen();
     }
     _changingToNextVideo = true;
     setupDataSource(nextDataSourceId);
@@ -86,7 +92,7 @@ class BetterPlayerPlaylistController {
     if (betterPlayerEvent.betterPlayerEventType ==
         BetterPlayerEventType.finished) {
       if (_getNextDataSourceIndex() != -1) {
-        _betterPlayerController!.startNextVideoTimer();
+        _betterPlayerController.startNextVideoTimer();
       }
     }
   }
@@ -95,12 +101,14 @@ class BetterPlayerPlaylistController {
   ///in constructor. Index must
   void setupDataSource(int index) {
     assert(
-        index >= 0 && index < _betterPlayerDataSourceList.length,
+        index != null &&
+            index >= 0 &&
+            index < _betterPlayerDataSourceList.length,
         "Index must be greater than 0 and less than size of data source "
         "list - 1");
     if (index <= _dataSourceLength) {
       _currentDataSourceIndex = index;
-      _betterPlayerController!
+      _betterPlayerController
           .setupDataSource(_betterPlayerDataSourceList[index]);
     }
   }
@@ -127,10 +135,10 @@ class BetterPlayerPlaylistController {
   int get currentDataSourceIndex => _currentDataSourceIndex;
 
   ///Get size of [_betterPlayerDataSourceList]
-  int get _dataSourceLength => _betterPlayerDataSourceList.length;
+  int get _dataSourceLength => _betterPlayerDataSourceList.length ?? 0;
 
   ///Get BetterPlayerController instance
-  BetterPlayerController? get betterPlayerController => _betterPlayerController;
+  BetterPlayerController get betterPlayerController => _betterPlayerController;
 
   ///Cleanup BetterPlayerPlaylistController
   void dispose() {

@@ -11,7 +11,7 @@ class MemoryPlayerPage extends StatefulWidget {
 }
 
 class _MemoryPlayerPageState extends State<MemoryPlayerPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

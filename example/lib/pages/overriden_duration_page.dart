@@ -8,7 +8,7 @@ class OverriddenDurationPage extends StatefulWidget {
 }
 
 class _OverriddenDurationPageState extends State<OverriddenDurationPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

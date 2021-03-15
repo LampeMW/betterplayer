@@ -10,7 +10,7 @@ class AutoFullscreenOrientationPage extends StatefulWidget {
 
 class _AutoFullscreenOrientationPageState
     extends State<AutoFullscreenOrientationPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

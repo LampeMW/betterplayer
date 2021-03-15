@@ -20,5 +20,5 @@ enum BetterPlayerEventType {
   pipStart,
   pipStop,
   setupDataSource,
-  closed
+  closeVideo
 }

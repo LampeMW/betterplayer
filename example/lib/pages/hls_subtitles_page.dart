@@ -8,7 +8,7 @@ class HlsSubtitlesPage extends StatefulWidget {
 }
 
 class _HlsSubtitlesPageState extends State<HlsSubtitlesPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {

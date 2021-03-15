@@ -8,7 +8,7 @@ class PictureInPicturePage extends StatefulWidget {
 }
 
 class _PictureInPicturePageState extends State<PictureInPicturePage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
   GlobalKey _betterPlayerKey = GlobalKey();
 
   @override

@@ -11,7 +11,7 @@ class PlaceholderUntilPlayPage extends StatefulWidget {
 }
 
 class _PlaceholderUntilPlayPageState extends State<PlaceholderUntilPlayPage> {
-  late BetterPlayerController _betterPlayerController;
+  BetterPlayerController _betterPlayerController;
   StreamController<bool> _placeholderStreamController =
       StreamController.broadcast();
   bool _showPlaceholder = true;
