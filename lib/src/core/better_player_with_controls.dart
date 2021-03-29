@@ -185,7 +185,11 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
   }
 
   Widget _buildMaterialControl() {
-    return BetterPlayerMaterialControls(
+    // return BetterPlayerMaterialControls(
+    //   onControlsVisibilityChanged: onControlsVisibilityChanged,
+    //   controlsConfiguration: controlsConfiguration,
+    // );
+    return BetterPlayerCupertinoControls(
       onControlsVisibilityChanged: onControlsVisibilityChanged,
       controlsConfiguration: controlsConfiguration,
     );
