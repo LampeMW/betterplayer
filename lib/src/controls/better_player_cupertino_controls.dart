@@ -47,7 +47,7 @@ class _BetterPlayerCupertinoControlsState
   Timer _expandCollapseTimer;
   Timer _initTimer;
   bool _wasLoading = false;
-  bool isShowingSubtitles = false;
+  bool _isShowingSubtitles = false;
 
   VideoPlayerController _controller;
   BetterPlayerController _betterPlayerController;
@@ -430,12 +430,12 @@ class _BetterPlayerCupertinoControlsState
       onTap: () {
         cancelAndRestartTimer();
 
-        if (isShowingSubtitles) {
+        if (_isShowingSubtitles) {
           // controller.setVolume(_latestVolume ?? 0.5);
           BetterPlayerSubtitlesSource noneSource =  BetterPlayerSubtitlesSource(type: BetterPlayerSubtitlesSourceType.none);
           betterPlayerController.setupSubtitleSource(noneSource);
           setState(() {
-            isShowingSubtitles = false;
+            _isShowingSubtitles = false;
           });
         } 
         else {
@@ -444,7 +444,7 @@ class _BetterPlayerCupertinoControlsState
           if (subtitles.length > 0) {
             betterPlayerController.setupSubtitleSource(subtitles.first, sourceInitialize: true);
             setState(() {
-              isShowingSubtitles = true;
+              _isShowingSubtitles = true;
             });
           }
         }
@@ -464,8 +464,9 @@ class _BetterPlayerCupertinoControlsState
                   horizontal: buttonPadding,
                 ),
                 child: Icon(
-                  _controlsConfiguration.subtitlesIcon,
-                  color: isShowingSubtitles ? Colors.white : Colors.grey,
+                  _isShowingSubtitles ? _controlsConfiguration.subtitlesIcon 
+                  : _controlsConfiguration.subtitlesOffIcon,
+                  color: iconColor,
                 ),
               ),
             ),
@@ -589,13 +590,13 @@ class _BetterPlayerCupertinoControlsState
           else
             const SizedBox(),
           Expanded(child: Container()),
+          if (_controlsConfiguration.enableSubtitles)
+            _buildSubtitlesButton(_controller, backgroundColor, iconColor, barHeight, buttonPadding)
+          else
+            const SizedBox(),
           if (_controlsConfiguration.enableMute)
             _buildMuteButton(_controller, backgroundColor, iconColor, barHeight,
                 buttonPadding)
-          else
-            const SizedBox(),
-          if (_controlsConfiguration.enableSubtitles)
-            _buildSubtitlesButton(_controller, backgroundColor, iconColor, barHeight, buttonPadding)
           else
             const SizedBox(),
           if (_controlsConfiguration.enableOverflowMenu)

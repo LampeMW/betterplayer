@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // Project imports:
+import 'package:better_player/better_player.dart';
 import 'package:better_player/src/configuration/better_player_controls_configuration.dart';
 import 'package:better_player/src/controls/better_player_clickable_widget.dart';
 import 'package:better_player/src/controls/better_player_controls_state.dart';
@@ -50,6 +51,7 @@ class _BetterPlayerMaterialControlsState
   VideoPlayerController _controller;
   BetterPlayerController _betterPlayerController;
   StreamSubscription _controlsVisibilityStreamSubscription;
+  bool _isShowingSubtitles = false;
 
   BetterPlayerControlsConfiguration get _controlsConfiguration =>
       widget.controlsConfiguration;
@@ -291,6 +293,10 @@ class _BetterPlayerMaterialControlsState
               _controlsConfiguration.enableProgressBar
                   ? _buildProgressBar()
                   : const SizedBox(),
+            if (_controlsConfiguration.enableSubtitles)
+              _buildSubtitlesButton(_controller)
+            else
+              const SizedBox(),
             if (_controlsConfiguration.enableMute)
               _buildMuteButton(_controller)
             else
@@ -489,6 +495,51 @@ class _BetterPlayerMaterialControlsState
           return const SizedBox();
         }
       },
+    );
+  }
+
+  Widget _buildSubtitlesButton(
+    VideoPlayerController controller,
+  ) {
+    return BetterPlayerMaterialClickableWidget(
+      onTap: () {
+        cancelAndRestartTimer();
+
+        if (_isShowingSubtitles) {
+          // controller.setVolume(_latestVolume ?? 0.5);
+          BetterPlayerSubtitlesSource noneSource =  BetterPlayerSubtitlesSource(type: BetterPlayerSubtitlesSourceType.none);
+          betterPlayerController.setupSubtitleSource(noneSource);
+          setState(() {
+            _isShowingSubtitles = false;
+          });
+        } 
+        else {
+          final subtitles =
+          List.of(betterPlayerController.betterPlayerSubtitlesSourceList);
+          if (subtitles.length > 0) {
+            betterPlayerController.setupSubtitleSource(subtitles.first, sourceInitialize: true);
+            setState(() {
+              _isShowingSubtitles = true;
+            });
+          }
+        }
+      },
+      child: AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: _controlsConfiguration.controlsHideTime,
+        child: ClipRect(
+          child: Container(
+            height: _controlsConfiguration.controlBarHeight,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Icon(
+              (_isShowingSubtitles)
+                  ? _controlsConfiguration.subtitlesIcon
+                  : _controlsConfiguration.subtitlesOffIcon,
+              color: _controlsConfiguration.iconsColor,
+            ),
+          ),
+        ),
+      ),
     );
   }
 

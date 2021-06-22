@@ -141,6 +141,8 @@ class BetterPlayerControlsConfiguration {
   ///Icon of the subtitles menu item from overflow menu
   final IconData subtitlesIcon;
 
+  final IconData subtitlesOffIcon;
+
   ///Icon of the qualities menu item from overflow menu
   final IconData qualitiesIcon;
 
@@ -214,7 +216,8 @@ class BetterPlayerControlsConfiguration {
       this.pipMenuIcon = Icons.picture_in_picture,
       this.playbackSpeedIcon = Icons.shutter_speed,
       this.qualitiesIcon = Icons.hd,
-      this.subtitlesIcon = Icons.text_fields,
+      this.subtitlesIcon = Icons.subtitles,
+      this.subtitlesOffIcon = Icons.subtitles_off,
       this.audioTracksIcon = Icons.audiotrack,
       this.overflowMenuIconsColor = Colors.black,
       this.forwardSkipTimeInMilliseconds = 15000,
