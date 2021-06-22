@@ -4,6 +4,8 @@ import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:better_player/src/configuration/better_player_controls_configuration.dart';
+import 'package:better_player/src/subtitles/better_player_subtitles_source.dart';
+import 'package:better_player/src/subtitles/better_player_subtitles_source_type.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -45,6 +47,7 @@ class _BetterPlayerCupertinoControlsState
   Timer _expandCollapseTimer;
   Timer _initTimer;
   bool _wasLoading = false;
+  bool isShowingSubtitles = false;
 
   VideoPlayerController _controller;
   BetterPlayerController _betterPlayerController;
@@ -416,6 +419,62 @@ class _BetterPlayerCupertinoControlsState
     );
   }
 
+  GestureDetector _buildSubtitlesButton(
+    VideoPlayerController controller,
+    Color backgroundColor,
+    Color iconColor,
+    double barHeight,
+    double buttonPadding,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        cancelAndRestartTimer();
+
+        if (isShowingSubtitles) {
+          // controller.setVolume(_latestVolume ?? 0.5);
+          BetterPlayerSubtitlesSource noneSource =  BetterPlayerSubtitlesSource(type: BetterPlayerSubtitlesSourceType.none);
+          betterPlayerController.setupSubtitleSource(noneSource);
+          setState(() {
+            isShowingSubtitles = false;
+          });
+        } 
+        else {
+          final subtitles =
+          List.of(betterPlayerController.betterPlayerSubtitlesSourceList);
+          if (subtitles.length > 0) {
+            betterPlayerController.setupSubtitleSource(subtitles.first, sourceInitialize: true);
+            setState(() {
+              isShowingSubtitles = true;
+            });
+          }
+        }
+      },
+      child: AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: _controlsConfiguration.controlsHideTime,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 10.0),
+            child: Container(
+              color: backgroundColor,
+              child: Container(
+                height: barHeight,
+                padding: EdgeInsets.symmetric(
+                  horizontal: buttonPadding,
+                ),
+                child: Icon(
+                  _controlsConfiguration.subtitlesIcon,
+                  color: isShowingSubtitles ? Colors.white : Colors.grey,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   GestureDetector _buildPlayPause(
     VideoPlayerController controller,
     Color iconColor,
@@ -533,6 +592,10 @@ class _BetterPlayerCupertinoControlsState
           if (_controlsConfiguration.enableMute)
             _buildMuteButton(_controller, backgroundColor, iconColor, barHeight,
                 buttonPadding)
+          else
+            const SizedBox(),
+          if (_controlsConfiguration.enableSubtitles)
+            _buildSubtitlesButton(_controller, backgroundColor, iconColor, barHeight, buttonPadding)
           else
             const SizedBox(),
           if (_controlsConfiguration.enableOverflowMenu)
