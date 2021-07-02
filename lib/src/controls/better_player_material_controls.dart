@@ -51,7 +51,7 @@ class _BetterPlayerMaterialControlsState
   VideoPlayerController _controller;
   BetterPlayerController _betterPlayerController;
   StreamSubscription _controlsVisibilityStreamSubscription;
-  bool _isShowingSubtitles = false;
+  bool _isShowingSubtitles = true;
 
   BetterPlayerControlsConfiguration get _controlsConfiguration =>
       widget.controlsConfiguration;
@@ -106,16 +106,6 @@ class _BetterPlayerMaterialControlsState
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (betterPlayerController.betterPlayerSubtitlesSourceList.length == 1) {
-      if (betterPlayerController.betterPlayerSubtitlesSourceList.first.selectedByDefault) {
-        _isShowingSubtitles = true;
-      }
-    }
   }
 
   @override

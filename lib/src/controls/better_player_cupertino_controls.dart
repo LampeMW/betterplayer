@@ -47,7 +47,7 @@ class _BetterPlayerCupertinoControlsState
   Timer _expandCollapseTimer;
   Timer _initTimer;
   bool _wasLoading = false;
-  bool _isShowingSubtitles = false;
+  bool _isShowingSubtitles = true;
 
   VideoPlayerController _controller;
   BetterPlayerController _betterPlayerController;
@@ -120,16 +120,6 @@ class _BetterPlayerCupertinoControlsState
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (betterPlayerController.betterPlayerSubtitlesSourceList.length == 1) {
-      if (betterPlayerController.betterPlayerSubtitlesSourceList.first.selectedByDefault) {
-        _isShowingSubtitles = true;
-      }
-    }
   }
 
   @override
