@@ -466,7 +466,7 @@ class _BetterPlayerCupertinoControlsState
                 child: SizedBox(
                   width: 24,
                   height: 24,
-                  child: Image.asset('assets/es_subtitles.png',
+                  child: Image.asset('packages/betterplayer/assets/es_subtitles.png',
                     color: _isShowingSubtitles ? iconColor : Colors.white.withAlpha(150),
                     fit: BoxFit.contain,
                   ),
