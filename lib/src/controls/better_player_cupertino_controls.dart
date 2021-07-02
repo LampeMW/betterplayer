@@ -463,11 +463,19 @@ class _BetterPlayerCupertinoControlsState
                 padding: EdgeInsets.symmetric(
                   horizontal: buttonPadding,
                 ),
-                child: Icon(
-                  _isShowingSubtitles ? _controlsConfiguration.subtitlesIcon 
-                  : _controlsConfiguration.subtitlesOffIcon,
-                  color: iconColor,
-                ),
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Image.asset('assets/es_subtitles.png',
+                    color: _isShowingSubtitles ? iconColor : Colors.white.withAlpha(150),
+                    fit: BoxFit.contain,
+                  ),
+                )
+                // Icon(
+                //   _isShowingSubtitles ? _controlsConfiguration.subtitlesIcon 
+                //   : _controlsConfiguration.subtitlesOffIcon,
+                //   color: iconColor,
+                // ),
               ),
             ),
           ),
