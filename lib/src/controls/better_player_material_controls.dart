@@ -109,6 +109,16 @@ class _BetterPlayerMaterialControlsState
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (betterPlayerController.betterPlayerSubtitlesSourceList.length == 1) {
+      if (betterPlayerController.betterPlayerSubtitlesSourceList.first.selectedByDefault) {
+        _isShowingSubtitles = true;
+      }
+    }
+  }
+
+  @override
   void dispose() {
     _dispose();
     super.dispose();
